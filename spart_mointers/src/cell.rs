@@ -7,8 +7,21 @@ struct Cell<T> {
 impl<T> Cell <T> {
     fn new(value: T) -> Self {
         Cell {
-            value
+            value : UnsafeCell::new(value),
         }
+    }
+
+    fn set(&self, value: T){
+        unsafe { *self.value.get() = value; }
+        
+    }
+
+    fn get(&self) -> T 
+    where
+    T: Copy,
+
+    {
+        unsafe { *self.value.get() }
     }
     
 }
