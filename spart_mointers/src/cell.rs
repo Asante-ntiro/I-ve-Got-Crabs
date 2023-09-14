@@ -1,6 +1,6 @@
 use std::cell::UnsafeCell;
 
-struct Cell<T> {
+pub struct Cell<T> {
     value: UnsafeCell<T>,
 }
 
