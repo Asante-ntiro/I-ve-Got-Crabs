@@ -5,18 +5,18 @@ pub struct Cell<T> {
 }
 
 impl<T> Cell <T> {
-    fn new(value: T) -> Self {
+    pub fn new(value: T) -> Self {
         Cell {
             value : UnsafeCell::new(value),
         }
     }
 
-    fn set(&self, value: T){
+    pub fn set(&self, value: T){
         unsafe { *self.value.get() = value; }
         
     }
 
-    fn get(&self) -> T 
+    pub fn get(&self) -> T 
     where
     T: Copy,
 
