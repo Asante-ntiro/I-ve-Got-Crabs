@@ -1,5 +1,5 @@
-use std::cell::UnsafeCell;
 use crate::cell::Cell;
+use std::cell::UnsafeCell;
 
 #[derive(Clone, Copy)]
 enum RefState {
@@ -13,7 +13,7 @@ pub struct RefCell<T> {
     state: Cell<RefState>,
 }
 
-impl <T> RefCell<T> {
+impl<T> RefCell<T> {
     pub fn new(value: T) -> Self {
         Self {
             value: UnsafeCell::new(value),
@@ -34,15 +34,12 @@ impl <T> RefCell<T> {
             RefState::Exclusive => None,
         }
     }
-   
+
     pub fn borrow_mut(&self) -> Option<&mut T> {
         if let RefState::Unshared = self.state.get() {
             self.state.set(RefState::Exclusive);
-            Some(unsafe {
-                &mut  *self.value.get()
-            })
-        }
-        else {
+            Some(unsafe { &mut *self.value.get() })
+        } else {
             None
         }
     }
